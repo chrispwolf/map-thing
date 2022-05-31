@@ -38,6 +38,19 @@ export default function Home() {
   }, [pageIsMounted])
 
   useEffect(()=>{
+    if(map) {
+      map.addControl(
+        new mapboxgl.GeolocateControl({
+          positionOptions: {
+            enableHighAccuracy: true,
+          },
+          trackUserLocation: true,
+        })
+      )
+    }
+  }, [map])
+
+  useEffect(()=>{
       console.log(currentData)
       if(currentData.features) {
         clearCurrentMarkers()
@@ -58,28 +71,29 @@ export default function Home() {
 
   return (
     <>
-      <Head>
-        <title>Jojo's Bizarre Map Venture</title>
-        <link href='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css' rel='stylesheet' />
-      </Head>
-      <header>
-        <Container sx={{my:5}}>
-          <h1>
-            Jojo's Bizarre Map Venture
-          </h1>
-        </Container>
-      </header>
-      <Container component="main">
-          <Paper sx={{p:2.5}}>
-            <ButtonGroup variant="contained" sx={{mb:2.5}}>
+          <Head>
+            <title>Jojo's Bizarre Map Venture</title>
+            <link href='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css' rel='stylesheet' />
+          </Head>
+            <ButtonGroup
+              // variant="outlined"
+              sx={{
+                position: 'absolute',
+                right: '3.5rem',
+                top: '1rem',
+                zIndex: '2',
+                backgroundColor: 'white'
+              }}>
               <Button onClick={()=>{
                 changeData('gold99')
               }}>
                 Gold's 99
               </Button>
-              <Button onClick={()=>{
-                changeData('tacos38')
-              }}>
+              <Button 
+                onClick={()=>{
+                  changeData('tacos38')
+                }}
+              >
                 38 Tacos
               </Button>
               <Button onClick={()=>{
@@ -93,12 +107,16 @@ export default function Home() {
             >
               Delete Markers
             </Button> */}
-            <Box>
-              <div id="jojo-map" style={{width: '100%', height: '600px'}}>
+              <div id="jojo-map" 
+                style={{ 
+                  width: '100vw',
+                  height: '100vh',
+                  position: 'absolute',
+                  top: 0,
+                  left: 0
+                }}
+              >
               </div>
-            </Box>
-          </Paper>
-      </Container>
     </>
   )
 }

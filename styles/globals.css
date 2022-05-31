@@ -14,3 +14,10 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.mapboxgl-ctrl-top-right {
+  top: .55rem;
+}
+.mapboxgl-ctrl-bottom-right {
+  display: none;
+}
