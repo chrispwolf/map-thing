@@ -1,9 +1,10 @@
 import Head from 'next/head'
 import { Box, Container, Paper, Button, ButtonGroup } from '@mui/material';
 import { useEffect, useState } from 'react';
+import { useTheme } from '@emotion/react';
 
 export default function Home() {
-
+  const theme = useTheme()
   const [pageIsMounted, setPageIsMounted] = useState(false)
   const[markers, setMarkers] = useState({})
   const[shownMarkers, setShownMarkers] = useState([])
@@ -52,7 +53,7 @@ export default function Home() {
         if(feature.properties.description) {
           popUpHTML += `<p>${feature.properties.description}</p>`
         }
-        const marker = new mapboxgl.Marker().setLngLat(feature.geometry.coordinates).setPopup(
+        const marker = new mapboxgl.Marker({color: theme.palette[collectionName].main}).setLngLat(feature.geometry.coordinates).setPopup(
           new mapboxgl.Popup({ offset: 25 })
             .setHTML(popUpHTML)
           )
@@ -93,6 +94,7 @@ export default function Home() {
           backgroundColor: 'white'
         }}>
         <Button 
+          color="gold99"
           variant={ (shownMarkers.indexOf('gold99') >= 0) ? 'contained' : 'outlined' }
           onClick={()=>{
             toggleMarkerCollection('gold99')
@@ -101,6 +103,7 @@ export default function Home() {
           Gold's 99
         </Button>
         <Button
+          color="tacos38"
           variant={ (shownMarkers.indexOf('tacos38') >= 0) ? 'contained' : 'outlined' }
           onClick={
             ()=>{
@@ -111,6 +114,7 @@ export default function Home() {
           38 Tacos
         </Button>
         <Button
+          color="filmingLocations"
           variant={ (shownMarkers.indexOf('filmingLocations') >= 0) ? 'contained' : 'outlined' } 
           onClick={()=>{
             toggleMarkerCollection('filmingLocations')
